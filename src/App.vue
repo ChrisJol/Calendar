@@ -18,6 +18,16 @@ export default Vue.extend({
 </script>
 
 <style>
+* {
+  box-sizing: border-box;
+}
+
+:root {
+  --steel: #dddfe0;
+  --steel-light: #f0f1f1;
+  --purple: #6273f0;
+}
+
 body {
   margin: 0;
 }
