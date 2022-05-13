@@ -1,11 +1,16 @@
 <template>
-  <div class="sidebar">
-    <div class="sidebar-header">
+  <div
+    class="border-r border-steel w-72 flex-shrink-0 px-8 py-6 flex flex-col gap-8"
+  >
+    <div class="flex items-center gap-2">
       <mdicon name="calendarBlank" size="30" />
-      <h1>Calendy</h1>
+      <h1 class="m-0">Calendy</h1>
     </div>
 
-    <button class="sidebar-cta" @click="createEvent">
+    <button
+      class="sidebar-cta flex justify-center items-center gap-2 text-purple bg-transparent border border-purple rounded-lg transition-colors cursor-pointer hover-bg-purple hover-text-white"
+      @click="createEvent"
+    >
       <mdicon name="Plus" />
       <p>Create Timeslot</p>
     </button>
@@ -35,67 +40,7 @@ export default Vue.extend({
         parent: this,
         component: NewEventModal,
       });
-    }
-  }
+    },
+  },
 });
 </script>
-
-<style>
-.sidebar {
-  width: 300px;
-  flex-shrink: 0;
-
-  padding: 1.5rem 2rem;
-
-  display: flex;
-  flex-direction: column;
-  gap: 2rem;
-
-  border-right: 1px solid #dddfe0;
-}
-
-.sidebar-header {
-  display: flex;
-  align-items: center;
-  gap: 0.5rem;
-}
-
-.sidebar-header h1 {
-  margin: 0;
-}
-
-.sidebar-cta {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  gap: 0.5rem;
-
-  color: var(--purple);
-
-  background-color: transparent;
-  border: 1px solid var(--purple);
-  border-radius: 0.5rem;
-
-  transition: color 0.1s;
-  cursor: pointer;
-}
-.sidebar-cta:hover {
-  background-color: var(--purple);
-  color: white;
-}
-
-form {
-  display: flex;
-  flex-direction: column;
-  gap: 0.5rem;
-}
-
-input {
-  border: none;
-  border: 1px solid var(--steel);
-  border-radius: 3px;
-  background-color: var(--steel-light);
-
-  padding: 0.75rem;
-}
-</style>

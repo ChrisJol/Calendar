@@ -1,6 +1,9 @@
 <template>
-  <div v-show="active" class="modal">
-    <div class="modal-component">
+  <div
+    v-show="active"
+    class="absolute inset-0 flex justify-center items-center pointer-events-auto rounded-lg"
+  >
+    <div class="z-50">
       <component
         :is="component"
         @closed="close"
@@ -9,7 +12,7 @@
         @failed="onFail"
       />
     </div>
-    <div @click="close" class="modal-trap"></div>
+    <div @click="close" class="absolute inset-0 z-40"></div>
   </div>
 </template>
 
@@ -96,27 +99,3 @@ export default Vue.extend({
   },
 });
 </script>
-
-<style>
-.modal {
-  position: absolute;
-  inset: 0;
-
-  display: flex;
-  justify-content: center;
-  align-items: center;
-
-  pointer-events: auto;
-  border-radius: 0.5rem;
-}
-
-.modal-component {
-  z-index: 50;
-}
-
-.modal-trap {
-  position: absolute;
-  inset: 0;
-  z-index: 40;
-}
-</style>

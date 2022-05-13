@@ -1,5 +1,5 @@
 <template>
-  <div class="calendar"></div>
+  <div class="w-full"></div>
 </template>
 
 <script lang="ts">
@@ -8,10 +8,3 @@ export default Vue.extend({
   name: "calendar",
 });
 </script>
-
-<style>
-.calendar {
-  width: 100%;
-  background-color: black;
-}
-</style>
