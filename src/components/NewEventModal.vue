@@ -107,6 +107,10 @@
 
 <script lang="ts">
 import Vue from "vue";
+import { mapMutations } from "vuex";
+import { MutationType } from "@/store";
+import { uniqueID } from "@/lib/utils";
+
 export default Vue.extend({
   name: "new-event-modal",
 
@@ -144,13 +148,24 @@ export default Vue.extend({
   },
 
   methods: {
+    ...mapMutations([MutationType.AddTimeSlot]),
+
     close(): void {
       this.$emit("closed");
     },
 
-    onsubmit() {
-      //
-    }
+    onSubmit() {
+      this[MutationType.AddTimeSlot]({
+        activityName: this.name,
+        date: new Date(),
+        startTime: new Date().getTime(),
+        endTime: new Date().getTime(),
+        numMaxGuests: this.numMaxGuests,
+        id: uniqueID(),
+      });
+
+      this.close();
+    },
   },
 });
 </script>
