@@ -25,7 +25,7 @@ export default Vue.extend({
 
     today(): boolean {
       const today = new Date();
-      const displayDate = new Date(2022, this.getDisplayMonth - 1, this.day);
+      const displayDate = new Date(2022, this.getDisplayMonth, this.day);
       return today.toDateString() === displayDate.toDateString();
     },
   },

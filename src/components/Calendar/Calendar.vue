@@ -31,10 +31,10 @@ export default Vue.extend({
   components: { NavBar, CalendarDay },
 
   computed: {
-    ...mapGetters(["getTimeSlots", "getCurrentDate", "getDisplayMonth"]),
+    ...mapGetters(["getTimeSlots", "getDisplayMonth"]),
 
     days(): number {
-      return new Date(2022, this.getDisplayMonth, 0).getDate();
+      return new Date(2022, this.getDisplayMonth + 1, 0).getDate();
     },
   },
 

@@ -14,7 +14,6 @@ export enum MutationType {
 
 declare interface BaseStateData {
   timeSlots: iTimeSlot[];
-  currentDate: Date;
   displayMonth: number;
   displayDay: number;
 }
@@ -22,7 +21,6 @@ declare interface BaseStateData {
 export default new Vuex.Store({
   state: {
     timeSlots: [] as iTimeSlot[],
-    currentDate: new Date(),
     displayMonth: new Date().getMonth(),
     displayDay: new Date().getDate(),
   },
@@ -53,10 +51,6 @@ export default new Vuex.Store({
   getters: {
     getTimeSlots: ({ timeSlots }: { timeSlots: iTimeSlot[] }): iTimeSlot[] => {
       return timeSlots;
-    },
-
-    getCurrentDate: ({ currentDate }: { currentDate: Date }): Date => {
-      return currentDate;
     },
 
     getDisplayMonth: ({ displayMonth }: { displayMonth: number }): number => {

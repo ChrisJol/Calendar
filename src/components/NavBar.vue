@@ -1,6 +1,6 @@
 <template>
   <div
-    class="w-full bg-white border-b border-steel p-4 flex gap-4 items-center"
+    class="w-full bg-white border-b border-steel p-4 flex gap-4 items-center justify-between"
   >
     <div class="flex gap-1 text-grey">
       <div @click="decrementMonth">
@@ -30,10 +30,10 @@ export default Vue.extend({
   name: "nav-bar",
 
   computed: {
-    ...mapGetters(["getCurrentDate", "getDisplayMonth"]),
+    ...mapGetters(["getDisplayMonth"]),
 
     month(): string {
-      const displayDate = new Date(2022, this.getDisplayMonth, 0);
+      const displayDate = new Date(2022, this.getDisplayMonth);
       return displayDate.toLocaleString("en-US", {
         month: "long",
       });
