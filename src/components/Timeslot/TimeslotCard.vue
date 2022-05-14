@@ -24,7 +24,7 @@
 
 <script lang="ts">
 import Vue from "vue";
-import { mapMutations } from "vuex";
+import { mapMutations, mapGetters } from "vuex";
 import { iTimeSlot } from "@/lib/utils";
 
 export default Vue.extend({
@@ -35,6 +35,8 @@ export default Vue.extend({
   },
 
   computed: {
+    ...mapGetters(["getNumOverlapping"]),
+
     timeRange(): string {
       const start = this.timeslot.startTime.toLocaleString("en-US", {
         hour: "numeric",
@@ -48,6 +50,10 @@ export default Vue.extend({
       return `from ${start} to ${end}`;
     },
 
+    numOverlapping(): number {
+      return this.getNumOverlapping(this.timeslot.overlapId);
+    },
+
     topOffset(): number {
       const hours = this.timeslot.startTime.getHours();
       const minutes = this.timeslot.startTime.getMinutes();
@@ -57,12 +63,12 @@ export default Vue.extend({
 
     leftOffset(): number {
       if (this.timeslot.position < 1) return 0;
-      return 100 / (this.timeslot.position + 1);
+      return (100 / this.numOverlapping) * this.timeslot.position;
     },
 
     width(): number {
-      if (this.timeslot.overlapping < 1) return 100;
-      return 100 / (this.timeslot.overlapping + 1);
+      if (this.numOverlapping < 1) return 100;
+      return 100 / this.numOverlapping;
     },
 
     height(): number {

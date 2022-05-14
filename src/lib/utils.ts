@@ -5,7 +5,7 @@ export interface iTimeSlot {
   endTime: Date;
   numMaxGuests: number;
   id: number;
-  overlapping: number;
+  overlapId: number;
   position: number;
 }
 

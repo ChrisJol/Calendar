@@ -29,8 +29,7 @@ export default new Vuex.Store({
             { start: timeslot.startTime, end: timeslot.endTime }
           )
         ) {
-          payload.overlapping++;
-          timeslot.overlapping++;
+          payload.overlapId = timeslot.overlapId;
           timeslot.position++;
         }
       });
@@ -45,7 +44,6 @@ export default new Vuex.Store({
             { start: timeslot.startTime, end: timeslot.endTime }
           )
         ) {
-          timeslot.overlapping--;
           timeslot.position--;
         }
       });
@@ -85,6 +83,14 @@ export default new Vuex.Store({
     getView: ({ view }: { view: string }): string => {
       return view;
     },
+
+    getNumOverlapping:
+      ({ timeSlots }: { timeSlots: iTimeSlot[] }) =>
+      (overlapId: number): number => {
+        return timeSlots.filter((timeslot) => {
+          return timeslot.overlapId === overlapId;
+        }).length;
+      },
   },
 
   modules: {},
