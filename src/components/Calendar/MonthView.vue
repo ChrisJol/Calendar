@@ -1,6 +1,5 @@
 <template>
   <div class="w-full flex flex-col bg-steel">
-    <nav-bar />
     <div class="grid grid-cols-7 gap-px pb-px">
       <p class="w-full flex justify-center bg-white py-2 text-grey">Sunday</p>
       <p class="w-full flex justify-center bg-white py-2 text-grey">Monday</p>
@@ -13,7 +12,7 @@
       <p class="w-full flex justify-center bg-white py-2 text-grey">Saturday</p>
     </div>
     <div class="grid grid-cols-7 grid-rows-5 gap-px pb-px">
-      <calendar-day v-for="day in days" :key="day" :day="day" />
+      <month-view-day v-for="day in days" :key="day" :day="day" />
     </div>
   </div>
 </template>
@@ -21,14 +20,12 @@
 <script lang="ts">
 import Vue from "vue";
 import { mapGetters, mapMutations } from "vuex";
-import { MutationType } from "@/store";
-import NavBar from "@/components/NavBar.vue";
-import CalendarDay from "./CalendarDay.vue";
+import MonthViewDay from "./MonthViewDay.vue";
 
 export default Vue.extend({
-  name: "calendar",
+  name: "month-view",
 
-  components: { NavBar, CalendarDay },
+  components: { MonthViewDay },
 
   computed: {
     ...mapGetters(["getTimeSlots", "getDisplayMonth"]),
@@ -39,10 +36,10 @@ export default Vue.extend({
   },
 
   methods: {
-    ...mapMutations([MutationType.DeleteTimeSlot]),
+    ...mapMutations(["DeleteTimeSlot"]),
 
     onDelete(id: string): void {
-      this[MutationType.DeleteTimeSlot](id);
+      this.DeleteTimeSlot(id);
     },
   },
 });
