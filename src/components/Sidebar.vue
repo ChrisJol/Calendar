@@ -8,7 +8,7 @@
     </div>
 
     <button
-      class="sidebar-cta flex justify-center items-center gap-2 text-purple bg-transparent border border-purple rounded-lg transition-colors cursor-pointer hover-bg-purple hover-text-white"
+      class="p-3 flex justify-center items-center gap-2 text-purple bg-transparent border border-purple rounded-lg transition-colors cursor-pointer hover-bg-purple hover-text-white"
       @click="createEvent"
     >
       <mdicon name="Plus" />
