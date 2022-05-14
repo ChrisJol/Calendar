@@ -42,7 +42,7 @@ export default new Vuex.Store({
     },
 
     SetView(state: BaseStateData, payload: string) {
-      if (state.view === payload ) return;
+      if (state.view === payload) return;
       window.localStorage.setItem("view", payload);
       state.view = payload;
     },
@@ -63,7 +63,7 @@ export default new Vuex.Store({
 
     getView: ({ view }: { view: string }): string => {
       return view;
-    }
+    },
   },
 
   modules: {},

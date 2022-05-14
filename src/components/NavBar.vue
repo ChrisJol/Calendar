@@ -4,13 +4,13 @@
   >
     <div class="flex gap-1 text-grey">
       <div
-        @click="decrementMonth"
+        @click="decrement"
         class="rounded-lg hover-bg-purple hover-text-white transition-colors"
       >
         <mdicon name="chevronLeft" size="30" class="cursor-pointer" />
       </div>
       <div
-        @click="incrementMonth"
+        @click="increment"
         class="rounded-lg hover-bg-purple hover-text-white transition-colors"
       >
         <mdicon name="chevronRight" size="30" class="cursor-pointer" />
@@ -68,14 +68,22 @@ export default Vue.extend({
   },
 
   methods: {
-    ...mapMutations(["SetDisplayMonth", "SetView"]),
+    ...mapMutations(["SetDisplayMonth", "SetDisplayDay", "SetView"]),
 
-    incrementMonth(): void {
-      this.SetDisplayMonth(this.getDisplayMonth + 1);
+    increment(): void {
+      if (this.getView === "month") {
+        this.SetDisplayMonth(this.getDisplayMonth + 1);
+      } else {
+        this.SetDisplayDay(this.getDisplayDay + 1);
+      }
     },
 
-    decrementMonth(): void {
-      this.SetDisplayMonth(this.getDisplayMonth - 1);
+    decrement(): void {
+      if (this.getView === "month") {
+        this.SetDisplayMonth(this.getDisplayMonth - 1);
+      } else {
+        this.SetDisplayDay(this.getDisplayDay - 1);
+      }
     },
 
     setView(view: string): void {

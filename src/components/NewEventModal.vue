@@ -28,7 +28,7 @@
           class="bg-transparent border border-white rounded text-white p-1 focus-outline-none"
           v-model="currentMonth"
         >
-          <option v-for="(month, index) in months" :key="index">
+          <option v-for="(month, index) in 12" :key="index">
             {{ month }}
           </option>
         </select>
@@ -46,9 +46,7 @@
           class="bg-transparent border border-white rounded text-white p-1 focus-outline-none"
           v-model="currentYear"
         >
-          <option v-for="(year, index) in years" :key="index">
-            {{ year }}
-          </option>
+          <option>2022</option>
         </select>
       </div>
 
@@ -66,10 +64,6 @@
             v-model="startMinutes"
             class="text-base focus-bg-purple-light text-center w-6 h-6 bg-transparent hover-bg-purple-light rounded-md focus-outline-none border-none text-white"
           />
-          <input
-            v-model="startPeriod"
-            class="text-sm focus-bg-purple-light text-center w-6 h-6 bg-transparent hover-bg-purple-light rounded-md focus-outline-none border-none text-white"
-          />
         </div>
 
         <div class="flex items-center">
@@ -82,10 +76,6 @@
           <input
             v-model="endMinutes"
             class="text-base focus-bg-purple-light text-center w-6 h-6 bg-transparent hover-bg-purple-light rounded-md focus-outline-none border-none text-white"
-          />
-          <input
-            v-model="endPeriod"
-            class="text-sm focus-bg-purple-light text-center w-6 h-6 bg-transparent hover-bg-purple-light rounded-md focus-outline-none border-none text-white"
           />
         </div>
       </div>
@@ -113,6 +103,7 @@
 import Vue from "vue";
 import { mapMutations } from "vuex";
 import { uniqueID } from "@/lib/utils";
+import { addMinutes, addHours } from "date-fns";
 
 export default Vue.extend({
   name: "new-event-modal",
@@ -127,32 +118,13 @@ export default Vue.extend({
     return {
       name: "",
       currentYear: "2022",
-      currentMonth: "May",
-      currentDay: "13",
-      startHour: new Date().getHours(),
-      startMinutes: new Date().getMinutes(),
-      startPeriod: "PM",
-      endHour: new Date().getHours(),
-      endMinutes: new Date().getMinutes(),
-      endPeriod: "PM",
-      startTime: null as Date | null,
-      endTime: null as Date | null,
+      currentMonth: new Date().getMonth(),
+      currentDay: new Date().getDate(),
+      startHour: new Date().toLocaleString("en-US", { hour: "2-digit" }),
+      startMinutes: new Date().toLocaleString("en-US", { minute: "2-digit" }),
+      endHour: new Date().toLocaleString("en-US", { hour: "2-digit" }),
+      endMinutes: new Date().toLocaleString("en-US", { minute: "2-digit" }),
       numMaxGuests: 10,
-      years: ["2022", "2023", "2024", "2025"],
-      months: [
-        "January",
-        "February",
-        "March",
-        "April",
-        "May",
-        "June",
-        "July",
-        "August",
-        "September",
-        "October",
-        "November",
-        "Decemnber",
-      ],
     };
   },
 
@@ -163,12 +135,38 @@ export default Vue.extend({
       this.$emit("closed");
     },
 
+    getDate(): Date {
+      const month =
+        typeof this.currentMonth === "string"
+          ? parseInt(this.currentMonth)
+          : this.currentMonth;
+
+      const day =
+        typeof this.currentDay === "string"
+          ? parseInt(this.currentDay)
+          : this.currentDay;
+
+      return new Date(2022, month, day);
+    },
+
+    getStartTime(): Date {
+      let time = addHours(this.getDate(), parseInt(this.startHour));
+      time = addMinutes(time, parseInt(this.startMinutes));
+      return time;
+    },
+
+    getEndTime(): Date {
+      let time = addHours(this.getDate(), parseInt(this.endHour));
+      time = addMinutes(time, parseInt(this.endMinutes));
+      return time;
+    },
+
     onSubmit() {
       this.AddTimeSlot({
         activityName: this.name,
-        date: new Date(),
-        startTime: new Date().getTime(),
-        endTime: new Date().getTime(),
+        date: this.getDate(),
+        startTime: this.getStartTime(),
+        endTime: this.getEndTime(),
         numMaxGuests: this.numMaxGuests,
         id: uniqueID(),
       });

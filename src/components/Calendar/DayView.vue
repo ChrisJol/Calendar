@@ -1,18 +1,21 @@
 <template>
   <div class="h-full p-4 flex flex-col flex-grow-0">
     <h2 class="text-purple-light pb-4">{{ day }}</h2>
-    <div class="h-full flex gap-4">
-      <div class="h-full w-full py-6 flex flex-col gap-10 overflow-y-scroll">
-        <div
-          v-for="(hour, i) in hoursInDay"
-          :key="i"
-          class="flex gap-2 items-center w-full text-steel"
-        >
-          <p>{{ hour }}</p>
-          <div class="w-full h-px bg-steel"></div>
-        </div>
+    <div class="h-full w-full my-6 flex flex-col overflow-y-scroll relative">
+      <div
+        v-for="(hour, i) in hoursInDay"
+        :key="i"
+        class="flex gap-2 w-full text-steel h-14 flex-shrink-0 border-t border-steel"
+      >
+        <p>{{ hour }}</p>
       </div>
-      <div class="w-96"></div>
+      <div class="absolute h-full w-cal right-2">
+        <timeslot-card
+          v-for="timeslot in timeslots"
+          :key="timeslot.id"
+          :timeslot="timeslot"
+        />
+      </div>
     </div>
   </div>
 </template>
@@ -20,16 +23,24 @@
 <script lang="ts">
 import Vue from "vue";
 import { mapGetters } from "vuex";
+import { iTimeSlot } from "@/lib/utils";
+import TimeslotCard from "@/components/Timeslot/TimeslotCard.vue";
 
 export default Vue.extend({
   name: "day-view",
 
-  mounted() {
-    console.log(this.hoursInDay);
-  },
+  components: { TimeslotCard },
 
   computed: {
-    ...mapGetters(["getDisplayMonth", "getDisplayDay"]),
+    ...mapGetters(["getDisplayMonth", "getDisplayDay", "getTimeSlots"]),
+
+    timeslots(): Array<iTimeSlot> {
+      const timeslots = this.getTimeSlots.filter((timeslot: iTimeSlot) => {
+        return timeslot.date.toDateString() === this.date.toDateString();
+      });
+
+      return timeslots;
+    },
 
     hoursInDay(): Array<string> {
       let hours = [];

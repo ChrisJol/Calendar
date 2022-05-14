@@ -1,8 +1,8 @@
 export interface iTimeSlot {
   activityName: string;
-  date: string;
-  startTime: string;
-  endTime: string;
+  date: Date;
+  startTime: Date;
+  endTime: Date;
   numMaxGuests: number;
   id: number;
 }
