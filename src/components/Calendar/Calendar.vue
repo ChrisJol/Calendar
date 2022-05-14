@@ -2,7 +2,7 @@
   <div class="w-full flex flex-col">
     <nav-bar />
     <div class="grid grid-cols-7 grid-rows-5 gap-px bg-steel pb-px">
-      <calendar-day v-for="day in 31" :key="day" />
+      <calendar-day v-for="day in days" :key="day" :day="day" />
     </div>
   </div>
 </template>
@@ -20,7 +20,11 @@ export default Vue.extend({
   components: { NavBar, CalendarDay, },
 
   computed: {
-    ...mapGetters(["getTimeSlots"]),
+    ...mapGetters(["getTimeSlots", "getCurrentDate", "getDisplayMonth"]),
+
+    days(): number {
+      return new Date(2022, this.getDisplayMonth, 0).getDate();
+    },
   },
 
   methods: {

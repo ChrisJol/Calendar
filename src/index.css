@@ -12,6 +12,7 @@ This file is essentially my own implementation of a compiled TailwindCSS file.
 :root {
   --steel: #dddfe0;
   --steel-light: #f0f1f1;
+  --grey: #828282;
   --purple: #6273f0;
   --purple-light: #8995ec;
 }
@@ -104,6 +105,7 @@ p, h1, h2 { margin: 0; }
 /* text color */
 .text-white { color: white; }
 .text-purple { color: var(--purple)}
+.text-grey { color: var(--grey); }
 
 /* font size */
 .text-xs { 	font-size: 0.75rem; line-height: 1rem; }
@@ -132,6 +134,7 @@ p, h1, h2 { margin: 0; }
 .hover-bg-white:hover { background-color: white; }
 .hover-bg-purple:hover { background-color: var(--purple); }
 .hover-bg-purple-light:hover { background-color: var(--purple-light); }
+.hover-bg-grey:hover { background-color: var(--grey); }
 
 /* focus */
 .focus-bg-purple-light:focus { background-color: var(--purple-light); }
