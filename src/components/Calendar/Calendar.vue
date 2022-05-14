@@ -1,14 +1,8 @@
 <template>
-  <div class="w-full flex flex-col gap-2 p-4">
-    <div
-      class="w-max flex gap-4 items-center bg-purple rounded p-2 text-white"
-      v-for="timeslot in getTimeSlots"
-      :key="timeslot.id"
-    >
-      <p>{{ timeslot.activityName }}</p>
-      <div @click="onDelete(timeslot.id)" class="cursor-pointer">
-        <mdicon name="Delete" />
-      </div>
+  <div class="w-full flex flex-col">
+    <nav-bar />
+    <div class="grid grid-cols-7 grid-rows-5 gap-px bg-steel pb-px">
+      <calendar-day v-for="day in 31" :key="day" />
     </div>
   </div>
 </template>
@@ -17,9 +11,13 @@
 import Vue from "vue";
 import { mapGetters, mapMutations } from "vuex";
 import { MutationType } from "@/store";
+import NavBar from "@/components/NavBar.vue";
+import CalendarDay from "./CalendarDay.vue";
 
 export default Vue.extend({
   name: "calendar",
+
+  components: { NavBar, CalendarDay, },
 
   computed: {
     ...mapGetters(["getTimeSlots"]),

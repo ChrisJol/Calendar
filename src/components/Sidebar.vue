@@ -4,7 +4,7 @@
   >
     <div class="flex items-center gap-2">
       <mdicon name="calendarBlank" size="30" />
-      <h1 class="m-0">Calendí</h1>
+      <h1>Calendí</h1>
     </div>
 
     <button
