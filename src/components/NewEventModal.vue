@@ -1,6 +1,5 @@
 <template>
   <div
-
     @keydown.enter.prevent="onSubmit"
     class="p-6 w-96 rounded-xl text-white bg-purple shadow-purple"
   >
@@ -113,7 +112,6 @@
 <script lang="ts">
 import Vue from "vue";
 import { mapMutations } from "vuex";
-import { MutationType } from "@/store";
 import { uniqueID } from "@/lib/utils";
 
 export default Vue.extend({
@@ -159,14 +157,14 @@ export default Vue.extend({
   },
 
   methods: {
-    ...mapMutations([MutationType.AddTimeSlot]),
+    ...mapMutations(["AddTimeSlot"]),
 
     close(): void {
       this.$emit("closed");
     },
 
     onSubmit() {
-      this[MutationType.AddTimeSlot]({
+      this.AddTimeSlot({
         activityName: this.name,
         date: new Date(),
         startTime: new Date().getTime(),

@@ -3,52 +3,83 @@
     class="w-full bg-white border-b border-steel p-4 flex gap-4 items-center justify-between"
   >
     <div class="flex gap-1 text-grey">
-      <div @click="decrementMonth">
+      <div
+        @click="decrementMonth"
+        class="rounded-lg hover-bg-purple hover-text-white transition-colors"
+      >
         <mdicon name="chevronLeft" size="30" class="cursor-pointer" />
       </div>
-      <div @click="incrementMonth">
+      <div
+        @click="incrementMonth"
+        class="rounded-lg hover-bg-purple hover-text-white transition-colors"
+      >
         <mdicon name="chevronRight" size="30" class="cursor-pointer" />
       </div>
     </div>
 
-    <h2 class="text-grey mr-2">{{ month }} 2022</h2>
+    <h2 class="text-grey mr-2">
+      {{ month }}<span v-if="getView === 'day'"> {{ day }}, </span> 2022
+    </h2>
 
-    <button
-      class="bg-transparent border text-grey px-8 py-2 border-grey rounded focus-outline-none hover-bg-grey hover-text-white cursor-pointer transition-colors rounded-md"
-    >
-      Today
-    </button>
+    <div class="flex gap-1">
+      <div
+        @click="setView('month')"
+        class="px-4 py-1 rounded-lg hover-bg-purple hover-text-white cursor-pointer transition-colors rounded-md"
+        :class="getView === 'month' ? 'bg-purple text-white' : 'text-grey'"
+      >
+        Month
+      </div>
+      <div
+        @click="setView('day')"
+        class="px-4 py-1 rounded-lg hover-bg-purple hover-text-white cursor-pointer transition-colors rounded-md"
+        :class="getView === 'day' ? 'bg-purple text-white' : 'text-grey'"
+      >
+        Day
+      </div>
+    </div>
   </div>
 </template>
 
 <script lang="ts">
 import Vue from "vue";
 import { mapGetters, mapMutations } from "vuex";
-import { MutationType } from "@/store";
 
 export default Vue.extend({
   name: "nav-bar",
 
   computed: {
-    ...mapGetters(["getDisplayMonth"]),
+    ...mapGetters(["getDisplayMonth", "getDisplayDay", "getView"]),
+
+    date(): Date {
+      return new Date(2022, this.getDisplayMonth, this.getDisplayDay);
+    },
+
+    day(): string {
+      return this.date.toLocaleString("en-US", {
+        day: "numeric",
+      });
+    },
 
     month(): string {
-      const displayDate = new Date(2022, this.getDisplayMonth);
-      return displayDate.toLocaleString("en-US", {
+      return this.date.toLocaleString("en-US", {
         month: "long",
       });
     },
   },
 
   methods: {
-    ...mapMutations([MutationType.SetDisplayMonth]),
+    ...mapMutations(["SetDisplayMonth", "SetView"]),
 
     incrementMonth(): void {
-      this[MutationType.SetDisplayMonth](this.getDisplayMonth + 1);
+      this.SetDisplayMonth(this.getDisplayMonth + 1);
     },
 
     decrementMonth(): void {
-      this[MutationType.SetDisplayMonth](this.getDisplayMonth - 1);
+      this.SetDisplayMonth(this.getDisplayMonth - 1);
+    },
+
+    setView(view: string): void {
+      this.SetView(view);
     },
   },
 });
