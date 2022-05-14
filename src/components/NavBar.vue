@@ -1,5 +1,7 @@
 <template>
-  <div class="w-full border-b border-steel p-4 flex gap-4 items-center">
+  <div
+    class="w-full bg-white border-b border-steel p-4 flex gap-4 items-center"
+  >
     <div class="flex gap-1 text-grey">
       <div @click="decrementMonth">
         <mdicon name="chevronLeft" size="30" class="cursor-pointer" />
