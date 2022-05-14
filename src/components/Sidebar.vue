@@ -4,12 +4,12 @@
   >
     <div class="flex items-center gap-2">
       <mdicon name="calendarBlank" size="30" />
-      <h1 class="m-0">Calendy</h1>
+      <h1 class="m-0">Calendí</h1>
     </div>
 
     <button
       class="p-3 flex justify-center items-center gap-2 text-purple bg-transparent border border-purple rounded-lg transition-colors cursor-pointer hover-bg-purple hover-text-white"
-      @click="createEvent"
+      @click.prevent="createEvent"
     >
       <mdicon name="Plus" />
       <p>Create Timeslot</p>

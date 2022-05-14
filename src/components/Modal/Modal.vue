@@ -20,7 +20,7 @@
 import Vue from "vue";
 
 export default Vue.extend({
-  name: "w-modal",
+  name: "modal",
 
   props: ["component", "props"],
 

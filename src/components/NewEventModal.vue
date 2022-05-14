@@ -1,5 +1,9 @@
 <template>
-  <div class="p-6 w-96 rounded-xl text-white bg-purple shadow-purple">
+  <div
+
+    @keydown.enter.prevent="onSubmit"
+    class="p-6 w-96 rounded-xl text-white bg-purple shadow-purple"
+  >
     <div class="pb-4 w-full flex justify-between align-center">
       <h1 class="m-0">New Event!</h1>
       <div @click="close" class="cursor-pointer">
@@ -10,6 +14,7 @@
       <div class="border-b border-white flex items-center gap-2 w-full py-2">
         <mdicon name="calendarBlank" size="24" />
         <input
+          ref="input"
           class="rounded-none w-full bg-transparent border-none text-white text-xl p-0 placeholder-purple-light outline-none"
           v-model="name"
           type="text"
@@ -113,6 +118,12 @@ import { uniqueID } from "@/lib/utils";
 
 export default Vue.extend({
   name: "new-event-modal",
+
+  mounted() {
+    this.$nextTick(() => {
+      (this.$refs.input as HTMLInputElement).focus();
+    });
+  },
 
   data() {
     return {
