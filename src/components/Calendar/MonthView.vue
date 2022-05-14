@@ -19,7 +19,7 @@
 
 <script lang="ts">
 import Vue from "vue";
-import { mapGetters, mapMutations } from "vuex";
+import { mapGetters } from "vuex";
 import MonthViewDay from "./MonthViewDay.vue";
 
 export default Vue.extend({
@@ -32,14 +32,6 @@ export default Vue.extend({
 
     days(): number {
       return new Date(2022, this.getDisplayMonth + 1, 0).getDate();
-    },
-  },
-
-  methods: {
-    ...mapMutations(["DeleteTimeSlot"]),
-
-    onDelete(id: string): void {
-      this.DeleteTimeSlot(id);
     },
   },
 });

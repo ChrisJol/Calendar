@@ -52,6 +52,7 @@ p, h1, h2 { margin: 0; }
 .flex { display: flex; }
 .flex-col { flex-direction: column; }
 
+.flex-wrap { flex-wrap: wrap; }
 .flex-shrink-0 { flex-shrink: 0; }
 .flex-shrink-1 { flex-shrink: 1; }
 .flex-grow-0 { flex-grow: 0; }
@@ -63,6 +64,7 @@ p, h1, h2 { margin: 0; }
 
 /* attributes */
 .justify-between { justify-content: space-between; }
+.justify-start { justify-content: flex-start;}
 .justify-center { justify-content: center; }
 .justify-end { justify-content: flex-end; }
 

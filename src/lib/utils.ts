@@ -5,6 +5,8 @@ export interface iTimeSlot {
   endTime: Date;
   numMaxGuests: number;
   id: number;
+  overlapping: number;
+  position: number;
 }
 
 export function uniqueID(): number {

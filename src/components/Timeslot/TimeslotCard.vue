@@ -1,11 +1,16 @@
 <template>
   <div
-    class="bg-purple-light rounded p-2 text-white flex flex-col gap-2 absolute left-0 w-full"
-    :style="{ top: `${topOffset}rem`, height: `${height}rem` }"
+    class="bg-purple-light rounded p-2 text-white flex flex-col gap-2 absolute border border-grey"
+    :style="{
+      top: `${topOffset}rem`,
+      left: `${leftOffset}%`,
+      height: `${height}rem`,
+      width: `${width}%`,
+    }"
   >
     <div class="w-full flex justify-between items-center text-xl">
       <p>{{ timeslot.activityName }}</p>
-      <div class="cursor-pointer" @click="DeleteTimeSlot(timeslot.id)">
+      <div class="cursor-pointer" @click="DeleteTimeSlot(timeslot)">
         <mdicon name="Delete" class="text-white" size="20" />
       </div>
     </div>
@@ -48,6 +53,16 @@ export default Vue.extend({
       const minutes = this.timeslot.startTime.getMinutes();
 
       return hours * 3.5 + (minutes / 60) * 3.5;
+    },
+
+    leftOffset(): number {
+      if (this.timeslot.position < 1) return 0;
+      return 100 / (this.timeslot.position + 1);
+    },
+
+    width(): number {
+      if (this.timeslot.overlapping < 1) return 100;
+      return 100 / (this.timeslot.overlapping + 1);
     },
 
     height(): number {

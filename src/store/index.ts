@@ -1,6 +1,7 @@
 import Vue from "vue";
 import Vuex from "vuex";
 import { iTimeSlot } from "@/lib/utils";
+import { areIntervalsOverlapping } from "date-fns";
 
 Vue.use(Vuex);
 
@@ -21,15 +22,35 @@ export default new Vuex.Store({
 
   mutations: {
     AddTimeSlot(state: BaseStateData, payload: iTimeSlot) {
-      if (state.timeSlots.find((timeslot) => timeslot.id === payload.id)) {
-        return;
-      }
+      state.timeSlots.map((timeslot) => {
+        if (
+          areIntervalsOverlapping(
+            { start: payload.startTime, end: payload.endTime },
+            { start: timeslot.startTime, end: timeslot.endTime }
+          )
+        ) {
+          payload.overlapping++;
+          timeslot.overlapping++;
+          timeslot.position++;
+        }
+      });
       state.timeSlots.push(payload);
     },
 
-    DeleteTimeSlot(state: BaseStateData, payload: number) {
+    DeleteTimeSlot(state: BaseStateData, payload: iTimeSlot) {
+      state.timeSlots.map((timeslot) => {
+        if (
+          areIntervalsOverlapping(
+            { start: payload.startTime, end: payload.endTime },
+            { start: timeslot.startTime, end: timeslot.endTime }
+          )
+        ) {
+          timeslot.overlapping--;
+          timeslot.position--;
+        }
+      });
       state.timeSlots = state.timeSlots.filter(
-        (timeslot) => timeslot.id !== payload
+        (timeslot) => timeslot.id !== payload.id
       );
     },
 

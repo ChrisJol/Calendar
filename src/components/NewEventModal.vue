@@ -169,6 +169,8 @@ export default Vue.extend({
         endTime: this.getEndTime(),
         numMaxGuests: this.numMaxGuests,
         id: uniqueID(),
+        overlapping: 0,
+        position: 0,
       });
 
       this.close();
