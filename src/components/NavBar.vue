@@ -5,15 +5,25 @@
     <div class="flex gap-1 text-grey">
       <div
         @click="decrement"
-        class="rounded-lg hover-bg-purple hover-text-white transition-colors"
+        class="rounded-lg hover-bg-purple hover-text-white transition-colors cursor-pointer"
       >
-        <mdicon name="chevronLeft" size="30" class="cursor-pointer" />
+        <svg style="width: 30px; height: 30px" viewBox="0 0 24 24">
+          <path
+            fill="currentColor"
+            d="M15.41,16.58L10.83,12L15.41,7.41L14,6L8,12L14,18L15.41,16.58Z"
+          />
+        </svg>
       </div>
       <div
         @click="increment"
-        class="rounded-lg hover-bg-purple hover-text-white transition-colors"
+        class="rounded-lg hover-bg-purple hover-text-white transition-colors cursor-pointer"
       >
-        <mdicon name="chevronRight" size="30" class="cursor-pointer" />
+        <svg style="width: 30px; height: 30px" viewBox="0 0 24 24">
+          <path
+            fill="currentColor"
+            d="M8.59,16.58L13.17,12L8.59,7.41L10,6L16,12L10,18L8.59,16.58Z"
+          />
+        </svg>
       </div>
     </div>
 
