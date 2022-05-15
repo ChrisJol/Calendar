@@ -7,16 +7,20 @@ const localVue = createLocalVue();
 localVue.use(Vuex);
 
 let mutations: any;
+let actions: any;
 let store: any;
 
 beforeEach(() => {
   mutations = {
     AddTimeSlot: jest.fn(),
     DeleteTimeSlot: jest.fn(),
-    UpdateTimeSlot: jest.fn(),
+  };
+  actions = {
+    updateTimeslot: jest.fn(),
   };
   store = new Vuex.Store({
     mutations,
+    actions,
   });
 });
 
@@ -64,7 +68,7 @@ describe("Given the update timeslot modal", () => {
   describe("When the update button is pressed", () => {
     it("UpdateTimeSlot mutation is dispatched", async () => {
       await wrapper.find("#update-button").trigger("click");
-      expect(mutations.UpdateTimeSlot).toHaveBeenCalled();
+      expect(actions.updateTimeslot).toHaveBeenCalled();
     });
   });
 });
