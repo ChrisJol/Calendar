@@ -3,53 +3,22 @@
     @keydown.enter.prevent="onSubmit"
     class="p-6 w-96 rounded-xl text-white bg-purple shadow-purple"
   >
-    <div class="pb-4 w-full flex justify-between align-center">
-      <h1 class="m-0">New Event!</h1>
+    <div class="pb-4 w-full flex justify-between items-center gap-4">
+      <div class="flex items-center gap-1">
+        <div class="pt-1">
+          <mdicon name="Calendar" />
+        </div>
+        <input
+          class="rounded-md px-2 py-1 bg-transparent hover-bg-purple-light focus-bg-purple-light text-3xl w-full border-none text-white text-xl p-0 placeholder-purple-light outline-none transition-colors"
+          v-model="name"
+          type="text"
+        />
+      </div>
       <div @click="close" class="cursor-pointer">
         <mdicon name="closeCircle" />
       </div>
     </div>
     <form class="px-2 flex flex-col gap-4">
-      <div class="border-b border-white flex items-center gap-2 w-full py-2">
-        <mdicon name="calendarBlank" size="24" />
-        <input
-          ref="input"
-          class="rounded-none w-full bg-transparent border-none text-white text-xl p-0 placeholder-purple-light outline-none"
-          v-model="name"
-          type="text"
-          placeholder="Give your event a name!"
-        />
-      </div>
-
-      <h2>Date</h2>
-
-      <div class="flex gap-2 items-center">
-        <select
-          class="bg-transparent border border-white rounded text-white p-1 focus-outline-none"
-          v-model="currentMonth"
-        >
-          <option v-for="(month, index) in 12" :key="index">
-            {{ month }}
-          </option>
-        </select>
-
-        <select
-          class="bg-transparent border border-white rounded text-white p-1 focus-outline-none"
-          v-model="currentDay"
-        >
-          <option v-for="(day, index) in 31" :key="index">
-            {{ day }}
-          </option>
-        </select>
-
-        <select
-          class="bg-transparent border border-white rounded text-white p-1 focus-outline-none"
-          v-model="currentYear"
-        >
-          <option>2022</option>
-        </select>
-      </div>
-
       <h2>Time</h2>
 
       <div class="flex flex-col gap-2">
@@ -89,12 +58,20 @@
         />
       </div>
 
-      <button
-        @click.prevent="onSubmit"
-        class="mt-4 p-3 text-lg text-white rounded hover-bg-white hover-text-purple transition-colors bg-purple-light border-none focus-outline-none cursor-pointer"
-      >
-        Let's Go!
-      </button>
+      <div class="w-full flex justify-end gap-2">
+        <button
+          @click.prevent="onDelete"
+          class="mt-4 p-3 text-lg text-white rounded-lg hover-bg-red transition-colors bg-red-light border-none focus-outline-none cursor-pointer"
+        >
+          Delete
+        </button>
+        <button
+          @click.prevent="onSubmit"
+          class="mt-4 p-3 text-lg text-white rounded-lg hover-bg-white hover-text-purple transition-colors bg-purple-light border-none focus-outline-none cursor-pointer"
+        >
+          Update
+        </button>
+      </div>
     </form>
   </div>
 </template>
@@ -104,32 +81,31 @@ import Vue from "vue";
 import { mapMutations } from "vuex";
 import { uniqueID } from "@/lib/utils";
 import { addMinutes, addHours } from "date-fns";
+import { iTimeSlot } from "@/lib/utils";
 
 export default Vue.extend({
-  name: "new-event-modal",
+  name: "update-timeslot-modal",
 
-  mounted() {
-    this.$nextTick(() => {
-      (this.$refs.input as HTMLInputElement).focus();
-    });
+  props: {
+    timeslot: Object as () => iTimeSlot,
   },
 
   data() {
     return {
-      name: "",
+      name: this.timeslot.activityName,
       currentYear: "2022",
-      currentMonth: new Date().getMonth(),
-      currentDay: new Date().getDate(),
-      startHour: new Date().getHours(),
-      startMinutes: new Date().getMinutes(),
-      endHour: new Date().getHours(),
-      endMinutes: new Date().getMinutes(),
-      numMaxGuests: 10,
+      currentMonth: this.timeslot.date.getMonth(),
+      currentDay: this.timeslot.date.getDate(),
+      startHour: this.timeslot.startTime.getHours(),
+      startMinutes: this.timeslot.startTime.getMinutes(),
+      endHour: this.timeslot.endTime.getHours(),
+      endMinutes: this.timeslot.endTime.getMinutes(),
+      numMaxGuests: this.timeslot.numMaxGuests,
     };
   },
 
   methods: {
-    ...mapMutations(["AddTimeSlot"]),
+    ...mapMutations(["UpdateTimeSlot", "DeleteTimeSlot"]),
 
     close(): void {
       this.$emit("closed");
@@ -161,16 +137,21 @@ export default Vue.extend({
       return time;
     },
 
+    onDelete(): void {
+      this.DeleteTimeSlot(this.timeslot);
+      this.close();
+    },
+
     onSubmit() {
-      this.AddTimeSlot({
+      this.UpdateTimeSlot({
         activityName: this.name,
         date: this.getDate(),
         startTime: this.getStartTime(),
         endTime: this.getEndTime(),
         numMaxGuests: this.numMaxGuests,
-        id: uniqueID(),
-        overlapId: uniqueID(),
-        position: 0,
+        id: this.timeslot.id,
+        overlapId: this.timeslot.overlapId,
+        position: this.timeslot.position,
       });
 
       this.close();
