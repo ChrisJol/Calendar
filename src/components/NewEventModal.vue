@@ -179,7 +179,7 @@ export default Vue.extend({
         endTime: this.getEndTime(),
         numMaxGuests: this.numMaxGuests,
         id: uniqueID(),
-        overlapId: uniqueID(),
+        overlapId: 0,
         position: 0,
       });
 

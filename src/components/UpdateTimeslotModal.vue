@@ -90,8 +90,7 @@
 
 <script lang="ts">
 import Vue from "vue";
-import { mapMutations } from "vuex";
-import { uniqueID } from "@/lib/utils";
+import { mapMutations, mapActions } from "vuex";
 import { addMinutes, addHours } from "date-fns";
 import { iTimeSlot } from "@/lib/utils";
 
@@ -117,7 +116,8 @@ export default Vue.extend({
   },
 
   methods: {
-    ...mapMutations(["UpdateTimeSlot", "DeleteTimeSlot"]),
+    ...mapMutations(["DeleteTimeSlot"]),
+    ...mapActions(["updateTimeslot"]),
 
     close(): void {
       this.$emit("closed");
@@ -155,7 +155,7 @@ export default Vue.extend({
     },
 
     onSubmit() {
-      this.UpdateTimeSlot({
+      this.updateTimeslot({
         activityName: this.name,
         date: this.getDate(),
         startTime: this.getStartTime(),
