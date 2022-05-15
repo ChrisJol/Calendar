@@ -6,12 +6,22 @@
     <div class="pb-4 w-full flex justify-between align-center">
       <h1 class="m-0">New Event!</h1>
       <div @click="close" class="cursor-pointer">
-        <mdicon name="closeCircle" />
+        <svg style="width: 24px; height: 24px" viewBox="0 0 24 24">
+          <path
+            fill="currentColor"
+            d="M12,2C17.53,2 22,6.47 22,12C22,17.53 17.53,22 12,22C6.47,22 2,17.53 2,12C2,6.47 6.47,2 12,2M15.59,7L12,10.59L8.41,7L7,8.41L10.59,12L7,15.59L8.41,17L12,13.41L15.59,17L17,15.59L13.41,12L17,8.41L15.59,7Z"
+          />
+        </svg>
       </div>
     </div>
     <form class="px-2 flex flex-col gap-4">
       <div class="border-b border-white flex items-center gap-2 w-full py-2">
-        <mdicon name="calendarBlank" size="24" />
+        <svg style="width: 24px; height: 24px" viewBox="0 0 24 24">
+          <path
+            fill="currentColor"
+            d="M19,19H5V8H19M16,1V3H8V1H6V3H5C3.89,3 3,3.89 3,5V19A2,2 0 0,0 5,21H19A2,2 0 0,0 21,19V5C21,3.89 20.1,3 19,3H18V1"
+          />
+        </svg>
         <input
           ref="input"
           class="rounded-none w-full bg-transparent border-none text-white text-xl p-0 placeholder-purple-light outline-none"

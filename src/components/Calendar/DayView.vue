@@ -1,6 +1,6 @@
 <template>
   <div class="h-full p-4 flex flex-col flex-grow-0">
-    <h2 class="text-purple-light pb-4">{{ day }}</h2>
+    <h2 class="text-grey pb-4">{{ day }}</h2>
     <div class="h-full w-full my-6 flex flex-col overflow-y-scroll relative">
       <div
         v-for="(hour, i) in hoursInDay"
