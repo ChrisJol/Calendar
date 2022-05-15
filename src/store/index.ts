@@ -1,6 +1,6 @@
 import Vue from "vue";
 import Vuex from "vuex";
-import { iTimeSlot } from "@/lib/utils";
+import { iTimeSlot, setPositions } from "@/lib/utils";
 import { areIntervalsOverlapping } from "date-fns";
 
 Vue.use(Vuex);
@@ -15,7 +15,7 @@ declare interface BaseStateData {
 export default new Vuex.Store({
   state: {
     timeSlots: [] as iTimeSlot[],
-    view: window.localStorage.getItem("view") || "month",
+    view: window.localStorage.getItem("view") || "day",
     displayMonth: new Date().getMonth(),
     displayDay: new Date().getDate(),
   },
@@ -30,26 +30,29 @@ export default new Vuex.Store({
           )
         ) {
           payload.overlapId = timeslot.overlapId;
-          timeslot.position++;
         }
       });
       state.timeSlots.push(payload);
+      setPositions(
+        state.timeSlots.filter((slot) => slot.overlapId === payload.overlapId)
+      );
     },
 
     DeleteTimeSlot(state: BaseStateData, payload: iTimeSlot) {
-      state.timeSlots.map((timeslot) => {
-        if (
-          areIntervalsOverlapping(
-            { start: payload.startTime, end: payload.endTime },
-            { start: timeslot.startTime, end: timeslot.endTime }
-          )
-        ) {
-          timeslot.position--;
-        }
-      });
       state.timeSlots = state.timeSlots.filter(
         (timeslot) => timeslot.id !== payload.id
       );
+      setPositions(
+        state.timeSlots.filter((slot) => slot.overlapId === payload.overlapId)
+      );
+    },
+
+    UpdateTimeSlot(state: BaseStateData, payload: iTimeSlot) {
+      state.timeSlots.map((timeslot) => {
+        if (timeslot.id === payload.id) {
+          Object.assign(timeslot, payload);
+        }
+      });
     },
 
     SetDisplayMonth(state: BaseStateData, payload: number) {

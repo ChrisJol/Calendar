@@ -17,3 +17,9 @@ export function uniqueID(): number {
       .replace(".", "")
   );
 }
+
+export function setPositions(timeslots: Array<iTimeSlot>): void {
+  timeslots.map((timeslot, index) => {
+    timeslot.position = index;
+  });
+}
