@@ -1,6 +1,7 @@
 <template>
   <div
-    class="bg-purple-light rounded p-2 text-white flex flex-col gap-2 absolute border border-grey"
+    @click="editTimeslot"
+    class="bg-red-light hover-bg-red text-white rounded-lg p-4 flex flex-col gap-2 absolute border border-white transition-colors cursor-pointer"
     :style="{
       top: `${topOffset}rem`,
       left: `${leftOffset}%`,
@@ -8,17 +9,8 @@
       width: `${width}%`,
     }"
   >
-    <div class="w-full flex justify-between items-center text-xl">
-      <p>{{ timeslot.activityName }}</p>
-      <div class="cursor-pointer" @click="DeleteTimeSlot(timeslot)">
-        <mdicon name="Delete" class="text-white" size="20" />
-      </div>
-    </div>
-    <p>
-      {{ timeslot.date.toDateString() }}
-    </p>
-    <p>{{ timeRange }}</p>
-    <p>Max guests: {{ timeslot.numMaxGuests }}</p>
+    <p class="text-2xl">{{ timeslot.activityName }}</p>
+    <p>{{ datetime }}</p>
   </div>
 </template>
 
@@ -26,6 +18,7 @@
 import Vue from "vue";
 import { mapMutations, mapGetters } from "vuex";
 import { iTimeSlot } from "@/lib/utils";
+import UpdateTimeslotModal from "@/components/UpdateTimeslotModal.vue";
 
 export default Vue.extend({
   name: "timeslot-card",
@@ -37,17 +30,22 @@ export default Vue.extend({
   computed: {
     ...mapGetters(["getNumOverlapping"]),
 
-    timeRange(): string {
+    datetime(): string {
+      const date = this.timeslot.date.toLocaleString("en-US", {
+        dateStyle: "full",
+      });
       const start = this.timeslot.startTime.toLocaleString("en-US", {
         hour: "numeric",
-        minute: "numeric",
+        minute: "2-digit",
+        hour12: false,
       });
       const end = this.timeslot.endTime.toLocaleString("en-US", {
         hour: "numeric",
-        minute: "numeric",
+        minute: "2-digit",
+        hour12: false,
       });
 
-      return `from ${start} to ${end}`;
+      return `${date} ${start} - ${end}`;
     },
 
     numOverlapping(): number {
@@ -62,7 +60,6 @@ export default Vue.extend({
     },
 
     leftOffset(): number {
-      if (this.timeslot.position < 1) return 0;
       return (100 / this.numOverlapping) * this.timeslot.position;
     },
 
@@ -83,7 +80,15 @@ export default Vue.extend({
   },
 
   methods: {
-    ...mapMutations(["DeleteTimeSlot"]),
+    editTimeslot(): void {
+      this.$modal.open({
+        parent: this,
+        component: UpdateTimeslotModal,
+        props: {
+          timeslot: this.timeslot,
+        },
+      });
+    },
   },
 });
 </script>

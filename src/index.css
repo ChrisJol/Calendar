@@ -15,6 +15,8 @@ This file is essentially my own implementation of a compiled TailwindCSS file.
   --grey: #828282;
   --purple: #6273f0;
   --purple-light: #8995ec;
+  --red: #F07A81;
+  --red-light: #EDA1A5;
 }
 * {
   box-sizing: border-box;
@@ -89,6 +91,7 @@ p, h1, h2 { margin: 0; }
 
 .pb-px { padding-bottom: 1px; }
 .pb-4 { padding-bottom: 1rem; }
+.pt-1 { padding-top: 0.25rem; }
 
 .px-2 { padding-right: 0.5rem; padding-left: 0.5rem; }
 .px-4 { padding-right: 1rem; padding-left: 1rem; }
@@ -101,6 +104,7 @@ p, h1, h2 { margin: 0; }
 .py-6 { padding-top: 1.5rem; padding-bottom: 1.5rem; }
 
 .m-0 { margin: 0; }
+.m-1 { margin: 0.25rem; }
 
 .mr-1 { margin-right: 0.25rem; }
 .mr-2 { margin-right: 0.5rem; }
@@ -152,6 +156,9 @@ p, h1, h2 { margin: 0; }
 .text-base { font-size: 1rem; line-height: 1.5rem; }
 .text-lg { font-size: 1.125rem; line-height: 1.75rem; }
 .text-xl { font-size: 1.25rem; line-height: 1.75rem; }
+.text-2xl { font-size: 1.5rem; line-height: 2rem; }
+.text-3xl { font-size: 1.875rem; line-height: 2.25rem; }
+.text-4xl { font-size: 2.25rem; line-height: 2.5rem; }
 
 /* text alignment */
 .text-center { text-align: center; }
@@ -169,12 +176,15 @@ p, h1, h2 { margin: 0; }
 .bg-white { background-color: white; }
 .bg-purple { background-color: var(--purple); }
 .bg-purple-light { background-color: var(--purple-light); }
+.bg-red { background-color: var(--red); }
+.bg-red-light { background-color: var(--red-light); }
 .bg-transparent { background-color: transparent; }
 
 /* hover */
 .hover-bg-white:hover { background-color: white; }
 .hover-bg-purple:hover { background-color: var(--purple); }
 .hover-bg-purple-light:hover { background-color: var(--purple-light); }
+.hover-bg-red:hover { background-color: var(--red); }
 .hover-bg-grey:hover { background-color: var(--grey); }
 
 /* focus */
@@ -201,14 +211,18 @@ p, h1, h2 { margin: 0; }
 .border-steel { border-color: var(--steel); }
 .border-purple { border-color: var(--purple); }
 
+.hover-border-purple-light:hover { border-color: var(--purple-light); }
+
 /******************************************************************** EFFECTS */
 .shadow-purple { box-shadow: 5px 5px 25px 5px rgba(98,115,240,0.4);}
+.hover-shadow-purple:hover { box-shadow: 5px 5px 25px 5px rgba(98,115,240,0.4);}
 
 /******************************************************************** FILTERS */
 .backdrop-blur { backdrop-filter: blur(2px); }
 
 /**************************************************** TRANSITIONS & ANIMATION */
-.transition-colors { transition-property: background-color, border-color, color, fill, stroke; transition-duration: 150ms; }
+.transition-colors { transition-property: background-color, border-color, color, fill, stroke; transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1); transition-duration: 150ms; }
+.transition-shadow { transition-property: box-shadow; transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1); transition-duration: 150ms; }
 
 /***************************************************************** TRANSFORMS */
 .-translate-y-half { transform: translateY(-25%); }
