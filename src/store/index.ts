@@ -73,8 +73,8 @@ export default new Vuex.Store({
 
   actions: {
     updateTimeslot({ commit }: { commit: any }, payload: iTimeSlot) {
-      this.commit("DeleteTimeSlot", payload);
-      this.commit("AddTimeSlot", payload);
+      commit("DeleteTimeSlot", payload);
+      commit("AddTimeSlot", payload);
     },
   },
 
