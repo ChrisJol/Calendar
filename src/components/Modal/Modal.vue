@@ -1,7 +1,7 @@
 <template>
   <div
     v-show="active"
-    class="absolute inset-0 flex justify-center items-center pointer-events-auto rounded-lg"
+    class="absolute inset-0 flex justify-center items-center pointer-events-auto rounded-lg backdrop-blur"
   >
     <div class="z-50">
       <component

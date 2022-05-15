@@ -1,10 +1,12 @@
 export interface iTimeSlot {
   activityName: string;
-  date: string;
-  startTime: string;
-  endTime: string;
+  date: Date;
+  startTime: Date;
+  endTime: Date;
   numMaxGuests: number;
   id: number;
+  overlapId: number;
+  position: number;
 }
 
 export function uniqueID(): number {
@@ -14,4 +16,10 @@ export function uniqueID(): number {
       .toString()
       .replace(".", "")
   );
+}
+
+export function setPositions(timeslots: Array<iTimeSlot>): void {
+  timeslots.map((timeslot, index) => {
+    timeslot.position = index;
+  });
 }
