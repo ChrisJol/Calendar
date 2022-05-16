@@ -16,7 +16,11 @@
     </div>
     <form class="px-2 flex flex-col gap-4">
       <div class="border-b border-white flex items-center gap-2 w-full py-2">
-        <svg style="width: 24px; height: 24px" viewBox="0 0 24 24">
+        <svg
+          style="width: 24px; height: 24px"
+          viewBox="0 0 24 24"
+          :class="{ 'text-red': inputError }"
+        >
           <path
             fill="currentColor"
             d="M19,19H5V8H19M16,1V3H8V1H6V3H5C3.89,3 3,3.89 3,5V19A2,2 0 0,0 5,21H19A2,2 0 0,0 21,19V5C21,3.89 20.1,3 19,3H18V1"
@@ -60,7 +64,12 @@
         </select>
       </div>
 
-      <h2>Time</h2>
+      <div>
+        <h2>
+          Time<span class="text-xs text-purple-light"> (24 hour time)</span>
+        </h2>
+        <p class="text-xs text-purple-light">Event must be at least 2 hours</p>
+      </div>
 
       <div class="flex flex-col gap-2">
         <div class="flex items-center">
@@ -132,9 +141,10 @@ export default Vue.extend({
       currentDay: new Date().getDate(),
       startHour: new Date().getHours(),
       startMinutes: new Date().getMinutes(),
-      endHour: new Date().getHours(),
+      endHour: addHours(new Date(), 2).getHours(),
       endMinutes: new Date().getMinutes(),
       numMaxGuests: 10,
+      inputError: false,
     };
   },
 
@@ -172,6 +182,13 @@ export default Vue.extend({
     },
 
     onSubmit() {
+      if (this.name === "") {
+        this.inputError = true;
+        const input = this.$refs.input as HTMLInputElement;
+        input.placeholder = "You need to put a name ";
+        return;
+      }
+
       this.AddTimeSlot({
         activityName: this.name,
         date: this.getDate(),
@@ -184,6 +201,72 @@ export default Vue.extend({
       });
 
       this.close();
+    },
+  },
+
+  watch: {
+    name() {
+      this.inputError = false;
+      const input = this.$refs.input as HTMLInputElement;
+      input.placeholder = "Give your event a name!";
+    },
+
+    startHour(newHour, oldHour) {
+      if (!/^[0-9]+$/.test(newHour)) {
+        this.startHour = parseInt(oldHour);
+        return;
+      }
+
+      let hour = parseInt(newHour);
+
+      if (hour > 23 || hour < 0) {
+        this.startHour = parseInt(oldHour);
+        return;
+      } else if (hour >= this.endHour - 2) {
+        this.endHour = hour + 2;
+      }
+    },
+
+    startMinutes(newMinute, oldMinute) {
+      if (!/^[0-9]+$/.test(newMinute)) {
+        this.startMinutes = parseInt(oldMinute);
+        return;
+      }
+
+      let minute = parseInt(newMinute);
+
+      if (minute > 59 || minute < 0) {
+        this.startMinutes = parseInt(oldMinute);
+        return;
+      }
+    },
+
+    endHour(newHour, oldHour) {
+      if (!/^[0-9]+$/.test(newHour)) {
+        this.endHour = parseInt(oldHour);
+        return;
+      }
+
+      let hour = parseInt(newHour);
+
+      if (hour > 23 || hour < 0) {
+        this.endHour = parseInt(oldHour);
+        return;
+      }
+    },
+
+    endMinutes(newMinute, oldMinute) {
+      if (!/^[0-9]+$/.test(newMinute)) {
+        this.endMinutes = parseInt(oldMinute);
+        return;
+      }
+
+      let minute = parseInt(newMinute);
+
+      if (minute > 59 || minute < 0) {
+        this.endMinutes = parseInt(oldMinute);
+        return;
+      }
     },
   },
 });
