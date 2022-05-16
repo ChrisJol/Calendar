@@ -217,6 +217,7 @@ p, h1, h2 { margin: 0; }
 .hover-border-purple-light:hover { border-color: var(--purple-light); }
 
 /******************************************************************** EFFECTS */
+.shadow { box-shadow: 5px 5px 25px 5px rgba(0, 0, 0, 0.4);}
 .shadow-purple { box-shadow: 5px 5px 25px 5px rgba(98,115,240,0.4);}
 .hover-shadow-purple:hover { box-shadow: 5px 5px 25px 5px rgba(98,115,240,0.4);}
 
