@@ -72,6 +72,7 @@ export default new Vuex.Store({
   },
 
   actions: {
+    //This is not an ideal update method but it's a simple solution for updating overlap information
     updateTimeslot({ commit }: { commit: any }, payload: iTimeSlot) {
       commit("DeleteTimeSlot", payload);
       commit("AddTimeSlot", payload);

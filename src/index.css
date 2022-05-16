@@ -46,6 +46,7 @@ p, h1, h2 { margin: 0; }
 .inset-0 { inset: 0; }
 .overflow-scroll { overflow: scroll; }
 .overflow-y-scroll { overflow-y: scroll; }
+.overflow-hidden { overflow: hidden; }
 .z-40 { z-index: 40; }
 .z-50 { z-index: 50; }
 
@@ -110,6 +111,7 @@ p, h1, h2 { margin: 0; }
 .mr-2 { margin-right: 0.5rem; }
 .mt-4 { margin-top: 1rem; }
 .mt-1 { margin-top: 0.25rem; }
+.mt-6 { margin-top: 1.5rem; }
 .ml-16 { margin-left: 4rem; }
 
 .my-6 { margin-top: 1.5rem; margin-bottom: 1.5rem; }
