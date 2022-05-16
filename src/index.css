@@ -46,6 +46,7 @@ p, h1, h2 { margin: 0; }
 .inset-0 { inset: 0; }
 .overflow-scroll { overflow: scroll; }
 .overflow-y-scroll { overflow-y: scroll; }
+.overflow-hidden { overflow: hidden; }
 .z-40 { z-index: 40; }
 .z-50 { z-index: 50; }
 
@@ -93,6 +94,7 @@ p, h1, h2 { margin: 0; }
 .pb-4 { padding-bottom: 1rem; }
 .pt-1 { padding-top: 0.25rem; }
 
+.px-1 { padding-right: 0.25rem; padding-left: 0.25rem; }
 .px-2 { padding-right: 0.5rem; padding-left: 0.5rem; }
 .px-4 { padding-right: 1rem; padding-left: 1rem; }
 .px-6 { padding-right: 1.5rem; padding-left: 1.5rem; }
@@ -110,6 +112,7 @@ p, h1, h2 { margin: 0; }
 .mr-2 { margin-right: 0.5rem; }
 .mt-4 { margin-top: 1rem; }
 .mt-1 { margin-top: 0.25rem; }
+.mt-6 { margin-top: 1.5rem; }
 .ml-16 { margin-left: 4rem; }
 
 .my-6 { margin-top: 1.5rem; margin-bottom: 1.5rem; }
@@ -149,6 +152,7 @@ p, h1, h2 { margin: 0; }
 .text-purple-light { color: var(--purple-light); }
 .text-grey { color: var(--grey); }
 .text-steel { color: var(--steel); }
+.text-red { color: var(--red); }
 
 /* font size */
 .text-xs { 	font-size: 0.75rem; line-height: 1rem; }
@@ -214,6 +218,7 @@ p, h1, h2 { margin: 0; }
 .hover-border-purple-light:hover { border-color: var(--purple-light); }
 
 /******************************************************************** EFFECTS */
+.shadow { box-shadow: 5px 5px 25px 5px rgba(0, 0, 0, 0.4);}
 .shadow-purple { box-shadow: 5px 5px 25px 5px rgba(98,115,240,0.4);}
 .hover-shadow-purple:hover { box-shadow: 5px 5px 25px 5px rgba(98,115,240,0.4);}
 

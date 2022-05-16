@@ -21,11 +21,19 @@
 import Vue from "vue";
 import { mapGetters } from "vuex";
 import MonthViewDay from "./MonthViewDay.vue";
+import Disclaimer from "@/components/Disclaimer.vue";
 
 export default Vue.extend({
   name: "month-view",
 
   components: { MonthViewDay },
+
+  mounted() {
+    this.$modal.open({
+      parent: this,
+      component: Disclaimer,
+    });
+  },
 
   computed: {
     ...mapGetters(["getTimeSlots", "getDisplayMonth"]),
